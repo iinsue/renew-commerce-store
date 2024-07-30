@@ -1,9 +1,17 @@
-import Image from "next/image";
+import getBillboard from "@/actions/get-billboard";
+import { BillboardComponent } from "@/components/billboard";
+import { Container } from "@/components/ui/container";
 
-export default function Home() {
+const HomePage = async () => {
+  const billboard = await getBillboard("788a984b-9c24-4973-836f-c1af3d377bf4");
+
   return (
-    <main>
-      <div>Home</div>
-    </main>
+    <Container>
+      <div className="space-y-10 pb-10">
+        <BillboardComponent data={billboard} />
+      </div>
+    </Container>
   );
-}
+};
+
+export default HomePage;
