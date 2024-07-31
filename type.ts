@@ -18,7 +18,7 @@ export type Product = {
   isFeatured: boolean;
   size: Size;
   color: Color;
-  imgaes: Image[];
+  images: Image[];
 };
 
 export type Image = {
