@@ -5,17 +5,25 @@ import Image from "next/image";
 import IconButton from "./icon-button";
 import { Expand, ShoppingCart } from "lucide-react";
 import { CurrencyComponent } from "@/components/ui/currency";
+import { useRouter } from "next/navigation";
 
 type Props = {
   data: Product;
 };
 
 export const ProductCard: React.FC<Props> = ({ data }) => {
+  const router = useRouter();
+  const onClick = () => {
+    router.push(`/product/${data?.id}`);
+  };
   return (
     <>
       <div className="group cursor-pointer space-y-4 rounded-xl border bg-white p-3">
         {/* Images and Actions */}
-        <div className="relative aspect-square rounded-xl bg-gray-100">
+        <div
+          className="relative aspect-square rounded-xl bg-gray-100"
+          onClick={onClick}
+        >
           <Image
             src={data?.images?.[0]?.url}
             alt="product-image"
