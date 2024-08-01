@@ -16,14 +16,15 @@ export const ProductCard: React.FC<Props> = ({ data }) => {
   const onClick = () => {
     router.push(`/product/${data?.id}`);
   };
+
   return (
     <>
-      <div className="group cursor-pointer space-y-4 rounded-xl border bg-white p-3">
+      <div
+        className="group cursor-pointer space-y-4 rounded-xl border bg-white p-3"
+        onClick={onClick}
+      >
         {/* Images and Actions */}
-        <div
-          className="relative aspect-square rounded-xl bg-gray-100"
-          onClick={onClick}
-        >
+        <div className="relative aspect-square rounded-xl bg-gray-100">
           <Image
             src={data?.images?.[0]?.url}
             alt="product-image"
