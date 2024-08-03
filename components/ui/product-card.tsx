@@ -1,13 +1,16 @@
 "use client";
 
-import { Product } from "@/type";
 import Image from "next/image";
-import IconButton from "./icon-button";
-import { Expand, ShoppingCart } from "lucide-react";
-import { CurrencyComponent } from "@/components/ui/currency";
-import { useRouter } from "next/navigation";
 import { MouseEventHandler } from "react";
+import { useRouter } from "next/navigation";
+
+import { Product } from "@/type";
+import IconButton from "./icon-button";
+import { CurrencyComponent } from "@/components/ui/currency";
 import usePreviewModal from "@/hooks/use-preview-modal";
+import useCart from "@/hooks/use-carts";
+
+import { Expand, ShoppingCart } from "lucide-react";
 
 type Props = {
   data: Product;
@@ -16,13 +19,23 @@ type Props = {
 export const ProductCard: React.FC<Props> = ({ data }) => {
   const router = useRouter();
   const previewModal = usePreviewModal();
+  const cart = useCart();
+
+  // 상품 상세 페이지 이동
   const onClick = () => {
     router.push(`/product/${data?.id}`);
   };
 
+  // 확대 버튼 클릭
   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
     previewModal.onOpen(data);
+  };
+
+  // 장바구니에 상품 추가
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    cart.addItem(data);
   };
 
   return (
@@ -46,7 +59,7 @@ export const ProductCard: React.FC<Props> = ({ data }) => {
                 icon={<Expand className="size-5 text-gray-600" />}
               />
               <IconButton
-                onClick={() => {}}
+                onClick={onAddToCart}
                 icon={<ShoppingCart className="size-5 text-gray-600" />}
               />
             </div>
